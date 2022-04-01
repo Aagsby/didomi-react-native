@@ -6,8 +6,8 @@ import AppTrackingTransparency
 class RNDidomi: RCTEventEmitter {
     
     public static var initialized = false
-    let didomiEventListener = EventListener()
-    
+    var lastEventListener: EventListener? = nil
+
     override static func requiresMainQueueSetup() -> Bool {
         return true
     }
@@ -16,9 +16,8 @@ class RNDidomi: RCTEventEmitter {
     func initialize(userAgentName: String, userAgentVersion: String, apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil) {
         onReady()
         onError()
+        initEventListener()
         if !RNDidomi.initialized {
-            initEventListener()
-
             Didomi.shared.setUserAgent(name: userAgentName, version: userAgentVersion)
             
             Didomi.shared.initialize(DidomiInitializeParameters(
@@ -532,7 +531,13 @@ extension RNDidomi {
     }
     
     private func initEventListener(){
-        
+        if let lastEventListener = lastEventListener {
+            // TODO
+            // Didomi.shared.removeEventListener(listener: lastEventListener)
+        }
+
+        let didomiEventListener = EventListener()
+
         didomiEventListener.onConsentChanged = { event in
             self.sendEvent(withName: "on_consent_changed", body:"")
         }
@@ -658,6 +663,8 @@ extension RNDidomi {
         }
 
         Didomi.shared.addEventListener(listener: didomiEventListener)
+
+        lastEventListener = didomiEventListener
     }
 }
 
