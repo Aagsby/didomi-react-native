@@ -216,8 +216,6 @@ dependencies {
     implementation project(":reactnativedidomi")
     implementation "io.didomi.sdk:android:1.59.1"
 
-    implementation platform("com.google.firebase:firebase-bom:28.0.1")
-
     androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
     androidTestImplementation "androidx.test.ext:junit-ktx:1.1.2"
     androidTestImplementation "androidx.test:rules:1.3.0"
