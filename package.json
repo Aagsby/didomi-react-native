@@ -71,7 +71,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "@react-native-firebase/app": "^12.0.0"
   },
   "jest": {
     "preset": "react-native",
@@ -151,8 +152,5 @@
         }
       ]
     ]
-  },
-  "dependencies": {
-    "@react-native-firebase/app": "^12.0.0"
   }
 }
